@@ -1,0 +1,19 @@
+class Solution {
+public:
+    int maxWidthRamp(vector<int>& nums) {
+        int n=nums.size();
+        stack<int>s;
+        s.push(0);
+        for(int i=1;i<n;i++){
+           if(nums[i] < nums[s.top()]) s.push(i);
+        }
+        int ans=0;
+        for (int j = n - 1; j >= 0; j--) {
+            while (!s.empty() && nums[j] >= nums[s.top()]) {
+                ans = max(ans, j - s.top());
+                s.pop();
+            }
+        }
+        return ans;
+    }
+};
